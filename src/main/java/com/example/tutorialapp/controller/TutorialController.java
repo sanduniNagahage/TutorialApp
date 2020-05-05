@@ -71,11 +71,22 @@ public class TutorialController {
     @DeleteMapping("/tutorials/{id}")
         public ResponseEntity<Tutorial> deleteTutorial(@PathVariable ("id") String id){
 
+            try {
+                tutorialRepository.deleteById(id);
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } catch (Exception e) {
+                return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+            }
         }
 
     @DeleteMapping("/tutorials")
         public ResponseEntity<HttpStatus> deleteAllTutorials(){
-
+            try {
+                tutorialRepository.deleteAllTutorials();
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } catch (Exception e) {
+                return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+            }
         }
 
     @GetMapping("/tutorials/published")
